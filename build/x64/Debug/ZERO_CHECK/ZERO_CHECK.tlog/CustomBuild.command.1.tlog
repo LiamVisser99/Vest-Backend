@@ -1,0 +1,10 @@
+^C:\USERS\HIIMM\ONEDRIVE\DOCUMENTS\C++ TEMP\BUILD\CMAKEFILES\01B4F77E294C0D6673DF17EB78E48B17\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/hiimm/OneDrive/Documents/C++ Temp" "-BC:/Users/hiimm/OneDrive/Documents/C++ Temp/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/hiimm/OneDrive/Documents/C++ Temp/build/SimpleBLE_Test.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
