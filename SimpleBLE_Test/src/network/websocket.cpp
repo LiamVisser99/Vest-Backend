@@ -35,7 +35,7 @@ void websocket_manager::binary_haptic_packet(ix::WebSocket &webSocket, const uin
         haptic_packet packet{};
         memcpy(&buffer, &packet, sizeof(length));
         
-        std::cout << packet.duration << std::endl;
+        return packet;
     }
 }
 
@@ -103,7 +103,3 @@ void websocket_manager::websocket_init(const int &websocket_port, const std::str
     server.start();
     server.wait();
 }
-
-/*
-
-*/

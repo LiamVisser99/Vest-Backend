@@ -25,5 +25,7 @@ public:
     }
 
     std::vector<std::string> get_missing_files(std::vector<std::string> &file_id);
+    json get_file(const std::string &file_name);
+
     void add_new_file(std::vector<std::string> &file_data);
 };
