@@ -60,6 +60,7 @@ int main()
   }
 }
 )");
+std::cout << "Hello" << std::endl;
 
     s_manager.add_new_file(temp_data);
     w_manager.websocket_init(11520, "127.0.0.1");
