@@ -1,20 +1,21 @@
-#include "../include/haptics/haptic_engine.hpp"
-#include "../include/modles/modle/cpp"
+#include "haptics/haptic_engine.hpp"
+#include "models/model.hpp"
 
-void engine_manager::map_pattern(const auto& data)
+/*
+void engine_manager::map_pattern(const model::haptic_pattern_data& data)
 {
     raw_haptic_packet packet{};
 
-    for(const auto& row : row_X)
+    for(const auto& row : row_count)
     {
-        for(const auto& col : col_Y)
+        for(const auto& col : column_count)
         {
-            float nX = row / (float)(row_X - 1);
-            float nY = col / (float)(col_X - 1);
+            float n_x = row / (float)(row_count - 1);
+            float n_y = col / (float)(column_count - 1);
 
-            float distance = std::sqrtf((std::pow((nX - data.xCoord), 2) + std::pow((nY - data.yCoord), 2)));
+            float distance = std::sqrtf((std::pow((n_x - data.x_coord), 2) + std::pow((n_y - data.y_coord), 2)));
 
-            int index = (row * col_Y + col);
+            int index = (row * column_count + col);
             if(distance <= data.radius)
             {
                 float linear_remap = 1.0f - (distance / data.radius);
@@ -33,3 +34,4 @@ void engine_manager::map_pattern(const auto& data)
 
     return packet;
 }
+    */

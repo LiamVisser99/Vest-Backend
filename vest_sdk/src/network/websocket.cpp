@@ -1,41 +1,40 @@
 #include <iostream>
 
-#include "../../include/storage/storage.hpp"
-#include "../../include/network/websocket.hpp"
-#include "../../include/modles/modle.hpp"
-#include <nlohmann/json.hpp>
 #include <ixwebsocket/IXNetSystem.h>
 #include <ixwebsocket/IXWebSocketServer.h>
+#include <nlohmann/json.hpp>
+
+#include "models/model.hpp"
+#include "network/websocket.hpp"
+#include "storage/storage.hpp"
 
 using json = nlohmann::json;
 
-void websocket_manager::request_file(ix::WebSocket &webSocket, const std::vector<std::string> &file_id)
+void websocket_manager::request_file(ix::WebSocket& websocket, const std::vector<std::string>& file_id)
 {
     json request = {
         {"action", "get missing file"},
         {"id", file_id}};
 
     std::cout << "Payload sent: " << request << std::endl;
-    webSocket.send(std::move(request.dump()));
+    websocket.send(std::move(request.dump()));
 }
 
-void websocket_manager::valid_files(ix::WebSocket &webSocket)
+void websocket_manager::valid_files(ix::WebSocket& websocket)
 {
     json request = {
         {"action", "all files valid"}};
 
     std::cout << "Payload sent: " << request << std::endl;
-    webSocket.send(std::move(request.dump()));
+    websocket.send(std::move(request.dump()));
 }
 
-void websocket_manager::binary_haptic_packet(ix::WebSocket &webSocket, const uint8_t* buffer, size_t length)
+void websocket_manager::binary_haptic_packet(ix::WebSocket& websocket, const uint8_t* buffer, size_t length)
 {
-    if(length ==  sizeof(haptic_packet))
+    if(length == sizeof(haptic_packet))
     {
         haptic_packet packet{};
         memcpy(&buffer, &packet, sizeof(length));
-        
-        return packet;
     }
 }
 
@@ -45,7 +44,7 @@ void websocket_manager::websocket_init(const int &websocket_port, const std::str
 
     ix::WebSocketServer server(websocket_port, websocket_host);
 
-    server.setOnClientMessageCallback([this](std::shared_ptr<ix::ConnectionState> connection_state, ix::WebSocket &webSocket, const ix::WebSocketMessagePtr &msg)
+    server.setOnClientMessageCallback([this](std::shared_ptr<ix::ConnectionState> connection_state, ix::WebSocket& websocket, const ix::WebSocketMessagePtr& msg)
                                       {
         if(msg->type == ix::WebSocketMessageType::Message)
         {
@@ -53,7 +52,7 @@ void websocket_manager::websocket_init(const int &websocket_port, const std::str
 
         if(msg->binary)
         {
-            binary_haptic_packet(webSocket, reinterpret_cast<const uint8_t*>(msg->str.data()), sizeof(msg->str));
+            binary_haptic_packet(websocket, reinterpret_cast<const uint8_t*>(msg->str.data()), sizeof(msg->str));
         }
         else if(!msg->str.empty())
         {
@@ -73,11 +72,11 @@ void websocket_manager::websocket_init(const int &websocket_port, const std::str
                     std::vector<std::string> processed_files = manager.get_missing_files(incoming_files);
                     if(processed_files.empty())
                     {
-                        this->valid_files(webSocket);
+                        this->valid_files(websocket);
                     }
                     else
                     {
-                        this->request_file(webSocket, processed_files);
+                        this->request_file(websocket, processed_files);
                     }
                 }
             }

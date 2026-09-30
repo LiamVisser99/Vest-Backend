@@ -9,14 +9,15 @@ find_package(simpleble CONFIG REQUIRED)
 find_package(ixwebsocket CONFIG REQUIRED)
 
 add_executable(vestSDK
-    SimpleBLE_Test/src/main.cpp
-    SimpleBLE_Test/src/network/bluetooth.cpp
-    SimpleBLE_Test/src/network/websocket.cpp
-    SimpleBLE_Test/src/storage/storage.cpp
+    vest_sdk/src/main.cpp
+    vest_sdk/src/haptics/pattern_parser.cpp
+    vest_sdk/src/network/bluetooth.cpp
+    vest_sdk/src/network/websocket.cpp
+    vest_sdk/src/storage/storage.cpp
 )
 
 target_include_directories(vestSDK PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/SimpleBLE_Test/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/vest_sdk/include
 )
 
 target_link_libraries(vestSDK PRIVATE
