@@ -14,6 +14,7 @@ add_executable(vestSDK
     vest_sdk/src/network/bluetooth.cpp
     vest_sdk/src/network/websocket.cpp
     vest_sdk/src/storage/storage.cpp
+    vest_sdk/src/haptics/haptic_engine.cpp
 )
 
 target_include_directories(vestSDK PRIVATE

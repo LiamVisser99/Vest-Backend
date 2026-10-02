@@ -1,0 +1,19 @@
+{
+  "packages": [
+{
+  "SPDXID" : "SPDXRef-resource-0",
+  "checksums" : 
+  [
+    {
+      "algorithm" : "SHA512",
+      "checksumValue" : "609bc49c625b5b85b360ccbf09589c752c820685f2108d978daaa3eb5f8ce8d23f4edd02ab03853ae3e313911ad84537a02643af9c81f7f17b9a1ee2b762d930"
+    }
+  ],
+  "copyrightText" : "NOASSERTION",
+  "downloadLocation" : "git+https://github.com/OpenBluetoothToolbox/SimpleBLE@v0.14.0",
+  "licenseConcluded" : "NOASSERTION",
+  "licenseDeclared" : "NOASSERTION",
+  "name" : "OpenBluetoothToolbox/SimpleBLE"
+}
+  ]
+}

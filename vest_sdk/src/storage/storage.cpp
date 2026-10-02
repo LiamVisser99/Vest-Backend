@@ -1,58 +1,6 @@
 #include "storage/storage.hpp"
 
-std::vector<std::string> storage_manager::get_missing_files(std::vector<std::string> &file_id)
-{
-    fs::create_directories(app_dir);
-
-    std::vector<std::string> missing_files;
-    for (const auto &id : file_id)
-    {
-        fs::path full_path = app_dir / (id + ".mod");
-
-        if (!fs::exists(full_path))
-        {
-            missing_files.push_back(id);
-        }
-    }
-
-    return missing_files;
-}
-
-json storage_manager::get_file(const std::string &file_id)
-{
-    fs::create_directories(app_dir);
-
-    fs::path full_path = app_dir / (file_id + ".mod");
-
-    if (!fs::exists(full_path))
-    {
-        std::cerr << "Could not find file: " << (file_id + ".mod") << std::endl;
-        return json{};
-    }
-
-    std::ifstream file(full_path);
-    try
-    {
-        return json::parse(file);
-    }
-    catch (const json::parse_error &error)
-    {
-        file.close();
-
-        std::cerr << "Parsing failed: " << error.what() << std::endl;
-        std::error_code ec;
-
-        fs::remove(full_path, ec);
-
-        if (ec)
-        {
-            std::cerr << "Failed to delete corrupt file: " << ec.message() << std::endl;
-        }
-
-        return json{};
-    }
-}
-
+// Allows me to add new file(s)
 void storage_manager::add_new_file(std::vector<std::string> &file_data)
 {
 
@@ -107,9 +55,68 @@ void storage_manager::delete_file(const std::string &file_id)
     }
 }
 
+json storage_manager::get_file(const std::string &file_id)
+{
+    if (!exists(app_dir))
+        fs::create_directories(app_dir);
+
+    fs::path full_path = app_dir / (file_id + ".mod");
+
+    if (!fs::exists(full_path))
+    {
+        std::cerr << "Could not find file: " << (file_id + ".mod") << std::endl;
+        return json{};
+    }
+
+    std::ifstream file(full_path);
+    try
+    {
+        return json::parse(file);
+    }
+    catch (const json::parse_error &error)
+    {
+        file.close();
+
+        std::cerr << "Parsing failed: " << error.what() << std::endl;
+        std::error_code ec;
+
+        fs::remove(full_path, ec);
+
+        if (ec)
+        {
+            std::cerr << "Failed to delete corrupt file: " << ec.message() << std::endl;
+        }
+
+        return json{};
+    }
+}
+
+/*
+std::vector<std::string> storage_manager::get_missing_files(std::vector<std::string> &file_id)
+{
+    if (!exists(app_dir))
+        fs::create_directories(app_dir);
+
+    std::vector<std::string> missing_files;
+    for (const auto &id : file_id)
+    {
+        fs::path full_path = app_dir / (id + ".mod");
+
+        if (!fs::exists(full_path))
+        {
+            missing_files.push_back(id);
+        }
+    }
+
+    return missing_files;
+}
+*/
+
+/*
 haptic_layout storage_manager::load_file_to_memory(const std::string &file_id)
 {
-    fs::create_directories(app_dir);
+    if (!exists(app_dir))
+        fs::create_directories(app_dir);
 
     fs::path full_path = app_dir / (file_id + ".mod");
 
@@ -132,10 +139,12 @@ haptic_layout storage_manager::load_file_to_memory(const std::string &file_id)
         std::cerr << "Parsing failed: " << error.what() << std::endl;
     }
 }
+*/
 
 void storage_manager::load_all_patterns(std::unordered_map<std::string, haptic_layout> &memory_cache)
 {
-    fs::create_directories(app_dir);
+    if (!exists(app_dir))
+        fs::create_directories(app_dir);
 
     parser_manager parser;
 
@@ -147,7 +156,7 @@ void storage_manager::load_all_patterns(std::unordered_map<std::string, haptic_l
 
             haptic_layout data = parser.parse_file(get_file(file_id));
 
-            memory_cache[file_id] = data;
+            memory_cache[file_id] = std::move(data);
         }
     }
 }

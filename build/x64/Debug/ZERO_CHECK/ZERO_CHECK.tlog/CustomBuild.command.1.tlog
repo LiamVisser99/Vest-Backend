@@ -1,6 +1,6 @@
-^C:\USERS\HIIMM\ONEDRIVE\DOCUMENTS\C++ TEMP\BUILD\CMAKEFILES\01B4F77E294C0D6673DF17EB78E48B17\GENERATE.STAMP.RULE
+^C:\USERS\HIIMM\ONEDRIVE\DOCUMENTS\VESTSDK\BUILD\CMAKEFILES\58E4C7EF61BDFB3D6F2BE0133BDECCDB\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/hiimm/OneDrive/Documents/C++ Temp" "-BC:/Users/hiimm/OneDrive/Documents/C++ Temp/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/hiimm/OneDrive/Documents/C++ Temp/build/SimpleBLE_Test.sln"
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hiimm/OneDrive/Documents/vestSDK -BC:/Users/hiimm/OneDrive/Documents/vestSDK/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/hiimm/OneDrive/Documents/vestSDK/build/vestSDK.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

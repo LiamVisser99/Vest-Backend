@@ -1,8 +1,8 @@
 ================================================================================
 Linker Errors
-Generated: 2026-09-29T01:29:12.280Z
+Generated: 2026-10-02T00:45:17.340Z
 Total Errors: 1
 ================================================================================
 
 [LNK1168] (MSVC)
-cannot open C:\Users\hiimm\OneDrive\Documents\C++ Temp\build\Debug\SimpleBLE_Test.exe for writing [C:\Users\hiimm\OneDrive\Documents\C++ Temp\build\SimpleBLE_Test.vcxproj]
+cannot open C:\Users\hiimm\OneDrive\Documents\vestSDK\build\Debug\vestSDK.exe for writing [C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.vcxproj]

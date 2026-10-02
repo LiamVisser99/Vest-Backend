@@ -1,0 +1,98 @@
+Package: vcpkg-cmake-config
+Version: 2026-07-21
+Architecture: x64-windows
+Multi-Arch: same
+Abi: af53b18b48c32101703a040d932c2c814628b0f4078283c85c35515144c319d9
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2025-08-07
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 8e2067daeeb8769aa2136e8066279bd440a493f67a845abf0663d5e2040379a2
+Status: install ok installed
+
+Package: mbedtls
+Version: 3.6.5
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: fcc705e0c4d50f640ffdbeb1595f7ca95c4af9a1043e656a6d03f4bbf55b5170
+Description: An open source, portable, easy to use, readable and flexible SSL library
+Status: install ok installed
+
+Package: zlib
+Version: 1.3.2
+Port-Version: 2
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 1937e70de7a64d6d90e56cf838da08430d12defe30619fe212f659f918e28a13
+Description: A compression library
+Status: install ok installed
+
+Package: ixwebsocket
+Version: 12.0.1
+Depends: vcpkg-cmake, vcpkg-cmake-config, zlib
+Architecture: x64-windows
+Multi-Arch: same
+Abi: e8ab5bb2a3b035be2275bc26d858ea9f1ffa18e46a3e5d22a9f080aabc093203
+Description: Lightweight WebSocket Client and Server + HTTP Client and Server
+Default-Features: ssl
+Status: install ok installed
+
+Package: ixwebsocket
+Feature: mbedtls
+Depends: mbedtls
+Architecture: x64-windows
+Multi-Arch: same
+Description: SSL support (mbedTLS)
+Status: install ok installed
+
+Package: ixwebsocket
+Feature: ssl
+Depends: ixwebsocket
+Architecture: x64-windows
+Multi-Arch: same
+Description: Default SSL backend
+Status: install ok installed
+
+Package: nlohmann-json
+Version: 3.12.0
+Port-Version: 2
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 6c67a55110e09ebfebda4aec22cc9e1c2d6578435dcf91c848689dd5694427f3
+Description: JSON for Modern C++
+Status: install ok installed
+
+Package: nanopb
+Version: 0.4.9.2
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 36187307afdb3da7c905ee54616ba3569627998227fff7998222d630afad85d7
+Description: A small code-size Protocol Buffers implementation in ANSI C.
+Status: install ok installed
+
+Package: fmt
+Version: 12.2.0
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: dafb6f7fcd6b4aa5f9adb4001b47534e25cd8f1134f15fa1b01a9cc4f4ed93f1
+Description: {fmt} is an open-source formatting library providing a fast and safe alternative to C stdio and C++ iostreams.
+Status: install ok installed
+
+Package: simpleble
+Version: 0.14.0
+Port-Version: 1
+Depends: fmt, nanopb, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 562228c645b487f6d5ec8bcfd307fa3de6eff3126f7583e6a4a641fe11b391c8
+Description: The ultimate fully-fledged cross-platform library and bindings for Bluetooth Low Energy (BLE).
+Status: install ok installed
+

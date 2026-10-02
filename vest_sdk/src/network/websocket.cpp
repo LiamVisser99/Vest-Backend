@@ -1,16 +1,6 @@
-#include <iostream>
-
-#include <ixwebsocket/IXNetSystem.h>
-#include <ixwebsocket/IXWebSocketServer.h>
-#include <nlohmann/json.hpp>
-
-#include "models/model.hpp"
 #include "network/websocket.hpp"
-#include "storage/storage.hpp"
 
-using json = nlohmann::json;
-
-void websocket_manager::request_file(ix::WebSocket& websocket, const std::vector<std::string>& file_id)
+void websocket_manager::request_file(ix::WebSocket &websocket, const std::vector<std::string> &file_id)
 {
     json request = {
         {"action", "get missing file"},
@@ -20,7 +10,7 @@ void websocket_manager::request_file(ix::WebSocket& websocket, const std::vector
     websocket.send(std::move(request.dump()));
 }
 
-void websocket_manager::valid_files(ix::WebSocket& websocket)
+void websocket_manager::valid_files(ix::WebSocket &websocket)
 {
     json request = {
         {"action", "all files valid"}};
@@ -29,14 +19,21 @@ void websocket_manager::valid_files(ix::WebSocket& websocket)
     websocket.send(std::move(request.dump()));
 }
 
-void websocket_manager::binary_haptic_packet(ix::WebSocket& websocket, const uint8_t* buffer, size_t length)
+void websocket_manager::binary_haptic_packet(const uint8_t *buffer, size_t length)
 {
-    if(length == sizeof(haptic_packet))
+    if (length == sizeof(haptic_packet))
     {
         haptic_packet packet{};
         memcpy(&buffer, &packet, sizeof(length));
     }
 }
+
+/*
+void websocket::haptic_call(ix::WebSocket &websocket, const std::string& file_id)
+{
+    
+}
+*/
 
 void websocket_manager::websocket_init(const int &websocket_port, const std::string websocket_host)
 {
@@ -44,52 +41,23 @@ void websocket_manager::websocket_init(const int &websocket_port, const std::str
 
     ix::WebSocketServer server(websocket_port, websocket_host);
 
-    server.setOnClientMessageCallback([this](std::shared_ptr<ix::ConnectionState> connection_state, ix::WebSocket& websocket, const ix::WebSocketMessagePtr& msg)
+    server.setOnClientMessageCallback([this](std::shared_ptr<ix::ConnectionState> connection_state, ix::WebSocket &websocket, const ix::WebSocketMessagePtr &msg)
                                       {
-        if(msg->type == ix::WebSocketMessageType::Message)
+        if (msg->type == ix::WebSocketMessageType::Message)
         {
-            std::cout << "Remote ip: " << connection_state->getRemoteIp() << "\n" << "Payload: " << msg->str << std::endl;
+            std::cout << "Remote ip: " << connection_state->getRemoteIp() << "\n"
+                      << "Payload: " << msg->str << std::endl;
 
-        if(msg->binary)
-        {
-            binary_haptic_packet(websocket, reinterpret_cast<const uint8_t*>(msg->str.data()), sizeof(msg->str));
-        }
-        else if(!msg->str.empty())
-        {
             try
-        {
-            json websocket_message = json::parse(msg->str);
-
-            if(websocket_message.contains("action") && websocket_message["action"] == "check file")
             {
-                if(websocket_message.contains("id") && websocket_message["id"].is_array())
-                {
-                    std::vector<std::string> incoming_files;
+                json websocket_message = json::parse(msg->str);
 
-                    incoming_files = websocket_message["id"].get<std::vector<std::string>>();
-
-                    storage_manager manager;
-                    std::vector<std::string> processed_files = manager.get_missing_files(incoming_files);
-                    if(processed_files.empty())
-                    {
-                        this->valid_files(websocket);
-                    }
-                    else
-                    {
-                        this->request_file(websocket, processed_files);
-                    }
-                }
+                
             }
-        }
-        catch(const json::parse_error& error)
-        {
-            std::cerr << "Parsing failed: " << error.what() << std::endl;
-        }
-        catch(const std::exception& error)
-        {
-            std::cerr << "Unexpected error: " << error.what() << std::endl;
-        }
-        }
+            catch (const json::parse_error &error)
+            {
+                std::cerr << "Parsing failed: " << error.what() << std::endl;
+            }
         } });
 
     auto res = server.listen();
@@ -102,3 +70,26 @@ void websocket_manager::websocket_init(const int &websocket_port, const std::str
     server.start();
     server.wait();
 }
+
+/*
+  if (websocket_message.contains("action") && websocket_message["action"] == "check file")
+                {
+                    if (websocket_message.contains("id") && websocket_message["id"].is_array())
+                    {
+                        std::vector<std::string> incoming_files;
+
+                        incoming_files = websocket_message["id"].get<std::vector<std::string>>();
+
+                        storage_manager manager;
+                        std::vector<std::string> processed_files = manager.get_missing_files(incoming_files);
+                        if (processed_files.empty())
+                        {
+                            this->valid_files(websocket);
+                        }
+                        else
+                        {
+                            this->request_file(websocket, processed_files);
+                        }
+                    }
+                }
+*/

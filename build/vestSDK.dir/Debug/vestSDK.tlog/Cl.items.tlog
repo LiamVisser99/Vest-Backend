@@ -1,0 +1,6 @@
+C:\Users\hiimm\OneDrive\Documents\vestSDK\vest_sdk\src\main.cpp;C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.dir\Debug\main.obj
+C:\Users\hiimm\OneDrive\Documents\vestSDK\vest_sdk\src\haptics\pattern_parser.cpp;C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.dir\Debug\pattern_parser.obj
+C:\Users\hiimm\OneDrive\Documents\vestSDK\vest_sdk\src\network\bluetooth.cpp;C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.dir\Debug\bluetooth.obj
+C:\Users\hiimm\OneDrive\Documents\vestSDK\vest_sdk\src\network\websocket.cpp;C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.dir\Debug\websocket.obj
+C:\Users\hiimm\OneDrive\Documents\vestSDK\vest_sdk\src\storage\storage.cpp;C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.dir\Debug\storage.obj
+C:\Users\hiimm\OneDrive\Documents\vestSDK\vest_sdk\src\haptics\haptic_engine.cpp;C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.dir\Debug\haptic_engine.obj
