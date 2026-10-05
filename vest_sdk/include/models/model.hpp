@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <vector>
-#include <queue>
 
 struct haptic_packet
 {
@@ -18,6 +17,7 @@ struct haptic_layout
     std::vector<haptic_packet> back;
 };
 
+#pragma pack(push, 1)
 struct motor_data
 {
     std::vector<uint16_t> intensity;
@@ -25,14 +25,10 @@ struct motor_data
 
     motor_data(size_t is, size_t ds) : intensity(is), duration(ds) {}
 };
+#pragma pack(pop)
 
 struct raw_haptic_packet
 {
     std::vector<motor_data> array_front;
     std::vector<motor_data> array_back;
-};
-
-struct queue
-{
-    std::vector<std::queue<raw_haptic_packet>> packets;
 };
