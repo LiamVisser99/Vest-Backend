@@ -2,7 +2,7 @@
 
 // Currently the radius is fixed but that will hopefuly be changed in the future
 
-motor_data engine_manager::map_data(const haptic_packet& data)
+motor_data engine_manager::map_data(const haptic_packet &data)
 {
     size_t constructor_size = row_count * column_count;
     motor_data packet(constructor_size, constructor_size);
@@ -17,7 +17,7 @@ motor_data engine_manager::map_data(const haptic_packet& data)
             float distance = std::sqrtf((std::pow((n_x - data.x_coord), 2) + std::pow((n_y - data.y_coord), 2)));
 
             int index = (row * column_count + col);
-            if(distance <= radius)
+            if (distance <= radius)
             {
                 float linear_remap = 1.0f - (distance / radius);
                 float smoothstep_remap = data.intensity * ((linear_remap * linear_remap) * (3.0f - (2.0f * linear_remap)));
@@ -31,7 +31,6 @@ motor_data engine_manager::map_data(const haptic_packet& data)
 
     return packet;
 }
-
 
 raw_haptic_packet engine_manager::map_pattern(const haptic_layout& data)
 {

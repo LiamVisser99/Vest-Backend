@@ -78,14 +78,14 @@ json storage_manager::get_file(const std::string &file_id)
         file.close();
 
         std::cerr << "Parsing failed: " << error.what() << std::endl;
-        std::error_code ec;
+        //std::error_code ec;
 
-        fs::remove(full_path, ec);
+        //fs::remove(full_path, ec);
 
-        if (ec)
-        {
-            std::cerr << "Failed to delete corrupt file: " << ec.message() << std::endl;
-        }
+        //if (ec)
+        //{
+        //    std::cerr << "Failed to delete corrupt file: " << ec.message() << std::endl;
+        //}
 
         return json{};
     }
