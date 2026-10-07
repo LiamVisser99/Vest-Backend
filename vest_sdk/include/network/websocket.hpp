@@ -17,5 +17,5 @@ public:
     void request_file(ix::WebSocket& websocket, const std::vector<std::string>& file_id);
     void valid_files(ix::WebSocket& websocket);
     void binary_haptic_packet(const uint8_t* buffer, size_t length);
-    void websocket_init(const int &websocket_port, const std::string websocket_host);
+    void init(const int &websocket_port, const std::string websocket_host);
 };

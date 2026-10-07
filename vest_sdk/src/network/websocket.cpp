@@ -35,8 +35,10 @@ void websocket::haptic_call(ix::WebSocket &websocket, const std::string& file_id
 }
 */
 
-void websocket_manager::websocket_init(const int &websocket_port, const std::string websocket_host)
+void websocket_manager::init(const int &websocket_port, const std::string websocket_host)
 {
+    std::cout << "Websocket started" << "\n";
+
     ix::initNetSystem();
 
     ix::WebSocketServer server(websocket_port, websocket_host);
