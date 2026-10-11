@@ -9,7 +9,8 @@
 #include <vector>
 
 #include <nlohmann/json.hpp>
-#include "../haptics/pattern_parser.hpp"
+
+#include "haptics/pattern_parser.hpp"
 
 using json = nlohmann::json;
 namespace fs = std::filesystem;

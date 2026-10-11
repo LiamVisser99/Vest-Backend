@@ -2,6 +2,9 @@
 
 #include <cstdint>
 #include <vector>
+#include <array>
+
+inline constexpr std::size_t motor_array_size = 20;
 
 struct haptic_packet
 {
@@ -17,18 +20,22 @@ struct haptic_layout
     std::vector<haptic_packet> back;
 };
 
-#pragma pack(push, 1)
-struct motor_data
+struct queue_info
 {
-    std::vector<uint16_t> intensity;
-    std::vector<uint16_t> duration;
-
-    motor_data(size_t is, size_t ds) : intensity(is), duration(ds) {}
+    std::array<uint16_t, motor_array_size> intensity;
+    std::array<uint16_t, motor_array_size> duration;
 };
-#pragma pack(pop)
 
+struct queue_container
+{
+    std::vector<queue_info> array_front;
+    std::vector<queue_info> array_back;
+};
+
+#pragma pack(push, 1)
 struct raw_haptic_packet
 {
-    std::vector<motor_data> array_front;
-    std::vector<motor_data> array_back;
+    std::array<uint16_t, motor_array_size> array_front;
+    std::array<uint16_t, motor_array_size> array_back;
 };
+#pragma pack(pop)

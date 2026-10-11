@@ -1,11 +1,8 @@
 #include "haptics/haptic_engine.hpp"
 
-// Currently the radius is fixed but that will hopefuly be changed in the future
-
-motor_data engine_manager::map_data(const haptic_packet& data)
+queue_info engine_manager::map_data(const haptic_packet &data)
 {
-    size_t constructor_size = row_count * column_count;
-    motor_data packet(constructor_size, constructor_size);
+    queue_info packet{};
 
     for (int row = 0; row < row_count; ++row)
     {
@@ -17,7 +14,7 @@ motor_data engine_manager::map_data(const haptic_packet& data)
             float distance = std::sqrtf((std::pow((n_x - data.x_coord), 2) + std::pow((n_y - data.y_coord), 2)));
 
             int index = (row * column_count + col);
-            if(distance <= radius)
+            if (distance <= radius)
             {
                 float linear_remap = 1.0f - (distance / radius);
                 float smoothstep_remap = data.intensity * ((linear_remap * linear_remap) * (3.0f - (2.0f * linear_remap)));
@@ -32,11 +29,10 @@ motor_data engine_manager::map_data(const haptic_packet& data)
     return packet;
 }
 
-
-raw_haptic_packet engine_manager::map_pattern(const haptic_layout& data)
+queue_container engine_manager::map_pattern(const haptic_layout &data)
 {
     size_t constructor_size = row_count * column_count;
-    raw_haptic_packet packet;
+    queue_container packet;
 
     for (size_t index = 0; index < data.front.size(); ++index)
     {
@@ -49,4 +45,35 @@ raw_haptic_packet engine_manager::map_pattern(const haptic_layout& data)
     }
 
     return packet;
+}
+
+void engine_manager::print_motor_grid(const queue_container& packet)
+{
+    for(size_t j = 0; j < packet.array_front.size(); j++)
+    {
+        const auto& front = packet.array_front[j].intensity;
+        const auto& back = packet.array_back[j].intensity;
+
+        std::cout << "\t " << "Front" << "\t\t\t" << "Back" << '\n';
+
+        for (size_t i = 0; i < front.size(); i++)
+        {
+            std::cout << std::setw(4) << front[i] << " ";
+
+            if(i % column_count == column_count - 1)
+            {
+                std::cout << " | ";
+
+                size_t row_start = i + 1 - column_count;
+
+                for (size_t k = row_start; k <= i && k < back.size(); k++)
+                {
+                    std::cout << std::setw(4) << back[k] << " ";
+                }
+
+                std::cout << "\n";
+            }
+        }
+        std::cout << "\n";
+    }
 }

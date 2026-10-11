@@ -11,9 +11,8 @@
 
 namespace
 {
-  connection_info settings{};
+    const connection_info settings{};
 }
-
 
 std::unordered_map<std::string, haptic_layout> memory_cache;
 
@@ -25,23 +24,25 @@ int main()
   parser_manager parser;
   engine_manager engine(4, 5, 0.80f);
 
-  // storage.add_new_file(temp_data);
+  storage.load_all_patterns(memory_cache);
+  auto pattern_it = memory_cache.find("First Haptic Pattern");
+
+  std::thread web([&websocket]()
+                  { websocket.init(11520, "127.0.0.1"); });
+  web.detach();
+
+  /*
   std::thread ble([&bluetooth]()
                   { bluetooth.init(); });
   ble.detach();
-  websocket.init(11520, "127.0.0.1");
+  */
 
-  storage.load_all_patterns(memory_cache);
+  std::this_thread::sleep_for(std::chrono::milliseconds(settings.pairing_time + 100));
 
-  auto pattern_it = memory_cache.find("First Haptic Pattern");
+  queue_container packet{};
   if (pattern_it != memory_cache.end())
   {
-    raw_haptic_packet packet = engine.map_pattern(pattern_it->second);
+    packet = engine.map_pattern(pattern_it->second);
   }
-
-  std::this_thread::sleep_for(std::chrono::seconds(5));
-
-  motor_data packet = {2000, 20};
-
-  bluetooth.send_haptic_message(packet);
+  engine.print_motor_grid(packet);
 }

@@ -1,8 +1,8 @@
 ================================================================================
 Linker Errors
-Generated: 2026-10-07T06:54:50.767Z
+Generated: 2026-10-08T06:14:15.091Z
 Total Errors: 1
 ================================================================================
 
-[LNK1168] (MSVC)
-cannot open C:\Users\hiimm\OneDrive\Documents\vestSDK\build\Debug\vestSDK.exe for writing [C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.vcxproj]
+[LNK1201] (MSVC)
+error writing to program database 'C:\Users\hiimm\OneDrive\Documents\vestSDK\build\Debug\vestSDK.pdb'; check for insufficient disk space, invalid path, or insufficient privilege [C:\Users\hiimm\OneDrive\Documents\vestSDK\build\vestSDK.vcxproj]

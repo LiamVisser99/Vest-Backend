@@ -31,9 +31,9 @@ SimpleBLE::Peripheral bluetooth_manager::get_preferred_device(SimpleBLE::Adapter
     std::vector<SimpleBLE::Peripheral> peripherals;
 
     adapter.set_callback_on_scan_start([]()
-                                       { std::cout << "Scan started." << std::endl; });
+                                       { std::cout << "Scan started." << '\n'; });
     adapter.set_callback_on_scan_stop([]()
-                                      { std::cout << "Scan stopped." << std::endl; });
+                                      { std::cout << "Scan stopped." << '\n'; });
     adapter.set_callback_on_scan_found([&](SimpleBLE::Peripheral peripheral)
                                        {
     
@@ -105,9 +105,9 @@ std::vector<std::pair<SimpleBLE::BluetoothUUID, SimpleBLE::BluetoothUUID>> bluet
     return temp_readable_characteristics;
 }
 
-void bluetooth_manager::send_haptic_message(const motor_data &data)
+void bluetooth_manager::send_haptic_message(const raw_haptic_packet &data)
 {
-    SimpleBLE::ByteArray payload(reinterpret_cast<const char*>(&data), sizeof(data));
+    SimpleBLE::ByteArray payload(reinterpret_cast<const char *>(&data), sizeof(data));
 
     peripheral_.write_command(settings.service_uuid, settings.characteristic_uuid, payload);
 }
