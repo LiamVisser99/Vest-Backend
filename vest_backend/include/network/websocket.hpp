@@ -19,8 +19,9 @@ class websocket_manager
 private:
 
 public:
+    void init(const int &websocket_port, const std::string websocket_host);
+
     void request_file(ix::WebSocket& websocket, const std::vector<std::string>& file_id);
     void valid_files(ix::WebSocket& websocket);
     void binary_haptic_packet(const uint8_t* buffer, size_t length);
-    void init(const int &websocket_port, const std::string websocket_host);
 };

@@ -8,10 +8,10 @@ queue_info engine_manager::map_data(const haptic_packet &data)
     {
         for (int col = 0; col < column_count; ++col)
         {
-            float n_x = col / (float)(column_count - 1);
-            float n_y = row / (float)(row_count - 1);
+            float n_x = col / (column_count - 1.0f);
+            float n_y = row / (row_count - 1.0f);
 
-            float distance = std::sqrtf((std::pow((n_x - data.x_coord), 2) + std::pow((n_y - data.y_coord), 2)));
+            float distance = std::sqrtf((std::powf((n_x - data.x_coord), 2.0f) + std::powf((n_y - data.y_coord), 2.0f)));
 
             int index = (row * column_count + col);
             if (distance <= radius)
@@ -19,8 +19,8 @@ queue_info engine_manager::map_data(const haptic_packet &data)
                 float linear_remap = 1.0f - (distance / radius);
                 float smoothstep_remap = data.intensity * ((linear_remap * linear_remap) * (3.0f - (2.0f * linear_remap)));
 
-                packet.intensity[index] += smoothstep_remap;
-                packet.intensity[index] = std::clamp<float>(packet.intensity[index], 0.0f, 4095.0f);
+                packet.intensity[index] += static_cast<int>(smoothstep_remap);
+                packet.intensity[index] = std::clamp<int>(packet.intensity[index], 0, 4095);
                 packet.duration[index] = data.duration;
             }
         }

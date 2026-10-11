@@ -12,7 +12,7 @@
 
 struct connection_info
 {
-static constexpr int pairing_time = 5000;
+static constexpr int pairing_time_ms = 5000;
 static constexpr std::string_view adapter_type = "TP-Link";
 static inline const SimpleBLE::ByteArray manufacturer_tag = {0x6d, 0x6f, 0x64, 0x75, 0x65, 0x78};
 static inline const SimpleBLE::BluetoothUUID characteristic_uuid = "12345678-1234-5678-1234-56789abcdef1";   
@@ -31,5 +31,6 @@ private:
 
 public:
     void init();
+
     void send_haptic_message(const raw_haptic_packet& data);
 };

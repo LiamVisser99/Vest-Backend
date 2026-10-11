@@ -50,7 +50,7 @@ SimpleBLE::Peripheral bluetooth_manager::get_preferred_device(SimpleBLE::Adapter
             }
         } });
 
-    adapter.scan_for(settings.pairing_time);
+    adapter.scan_for(settings.pairing_time_ms);
 
     if (peripherals.empty())
 
