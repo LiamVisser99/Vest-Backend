@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-# vestSDK
-=======
 # vest backend
 
 This is the core repository for the Moduex App backend
 
-*This is a wip project and some aspects may be broken at times*
+*This is a wip project and some aspects may be broken at times, front end is low priority and terminal interaction is prioritised*
 
 -----------------------------
 
@@ -24,4 +21,3 @@ Websockets to communicate between the eventual library and the app, allows for a
 
 - Storage and Parsing | 
 Storage for haptic files ".mod" that will be loaded into a hash map on boot and parsed on demand.
->>>>>>> 3aadb2682131cc4f689f7e3ab9ec73a33f308c65
